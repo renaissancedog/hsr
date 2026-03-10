@@ -13,4 +13,4 @@ no hsr should be under 30 miles
 
 population 2024
 
-madrid to seville gravity: .994 * 6830000 * 1560000 / (246)^2 = 175,009,438
+madrid to seville gravity: .994 * 6830 * 1560 / (246)^2 = 175.009

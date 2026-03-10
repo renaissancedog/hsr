@@ -55,12 +55,12 @@ def main():
             city2=msa_df.iloc[j]
             mi=haversine(city1['lon'], city1['lat'], city2['lon'], city2['lat'])
             mult=multiplier(mi)
-            gravity_score=mult*city1['pop']*city2['pop']/(mi**2)
-            if gravity_score>0:
+            gravity_score=mult*(city1['pop']/1000)*(city2['pop']/1000)/(mi**2)
+            if gravity_score>50:
                 data.append((city1['name'], city2['name'], city1["pop"], city2["pop"], hsr(mi), mult, gravity_score))
     data=pd.DataFrame(data, columns=['City1', 'City2', 'Pop1', 'Pop2', 'Dist', 'Multiplier', 'Gravity Score'])
     data=data.sort_values(by='Gravity Score', ascending=False)
-    data.to_csv("out.csv", index=False)
+    data.to_csv("output/selected_data.csv", index=False)
 
 if __name__ == "__main__":
     main()
