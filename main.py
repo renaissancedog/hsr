@@ -46,6 +46,8 @@ def haversine(lon1, lat1, lon2, lat2):
     c = 2 * np.arcsin(np.sqrt(a)) 
     return 3963 * c
 
+gravity_threshold=10
+
 def main():
     msa_df=pd.read_csv("msa.csv")
     data=[]
@@ -56,7 +58,7 @@ def main():
             mi=haversine(city1['lon'], city1['lat'], city2['lon'], city2['lat'])
             mult=multiplier(mi)
             gravity_score=mult*(city1['pop']/1000)*(city2['pop']/1000)/(mi**2)
-            if gravity_score>50:
+            if gravity_score>gravity_threshold:
                 data.append((city1['name'], city2['name'], city1["pop"], city2["pop"], hsr(mi), mult, gravity_score))
     data=pd.DataFrame(data, columns=['City1', 'City2', 'Pop1', 'Pop2', 'Dist', 'Multiplier', 'Gravity Score'])
     data=data.sort_values(by='Gravity Score', ascending=False)
